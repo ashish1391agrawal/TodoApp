@@ -1,8 +1,13 @@
 import React from 'react';
 import {StyleSheet, AsyncStorage, Alert, View, Text, ImageBackground, KeyboardAvoidingView, TextInput, TouchableOpacity } from 'react-native';
 import * as AllImage from '../../images/index';
+import { UserText, Header } from '../../Components/index';
 
 export class Login extends React.Component {
+    static navigationOptions = {
+        headerTitle: <Header text={'Login'} image={AllImage.backgroundImage}/>,
+    };
+
     constructor(props) {
         super(props);
         this.state = {
@@ -11,8 +16,6 @@ export class Login extends React.Component {
         };
     }
     login = () => {
-        AsyncStorage.setItem('name', 'ashu');
-        AsyncStorage.setItem('password', 'ashu');
         let password = '';
         let name = '';
         AsyncStorage.getItem('password', (err,  value) => {
@@ -20,12 +23,24 @@ export class Login extends React.Component {
             AsyncStorage.getItem('name', (err,  value) => {
                 name = value;
                 if (name === this.state.userName && this.state.password === password) {
-                    Alert.alert('Welcome');
+                    Alert.alert('Welcome', 'Succesfully Login');
                 }else {
-                    Alert.alert('invalid');
+                    Alert.alert('Sorry', 'Invalid User Name Password');
                 }
+                this.setState({userName: ''});
+                this.setState({password: ''});
             });
         });
+    };
+    signUp = () => {
+        this.setState({userName: ''});
+        this.setState({password: ''});
+        this.props.navigation.navigate('SignUp');
+    };
+    resetPassword = () => {
+        this.setState({userName: ''});
+        this.setState({password: ''});
+        this.props.navigation.navigate('ResetPassword');
     };
     render() {
         return (
@@ -33,15 +48,12 @@ export class Login extends React.Component {
                 <ImageBackground source={AllImage.backgroundImage} style={styles.container}>
                     <View style={styles.content}>
                         <KeyboardAvoidingView>
-                            <TextInput
-                                style={styles.textInput}
-                                onChangeText={(userName) => this.setState({userName})}
-                                value={this.state.userName}
-                                placeholder="Enter User Name"
-                            />
-                            <TextInput
-                                style={styles.textInput}
-                                onChangeText={(password) => this.setState({password})}
+                            <UserText style={styles.textInput}
+                                       onChange={(userName) => this.setState({userName})}
+                                       value={this.state.userName}
+                                       placeholder="Enter User Name" />
+
+                            <UserText onChange={(password) => this.setState({password})}
                                 value={this.state.password}
                                 placeholder="Enter Password"
                                 secureTextEntry={true}
@@ -52,6 +64,8 @@ export class Login extends React.Component {
                                 <Text style={{color: '#fff'}}>Login</Text>
                             </TouchableOpacity>
                         </KeyboardAvoidingView>
+                        <Text onPress={this.signUp}>Sign Up</Text>
+                        <Text onPress={this.resetPassword}>Reset Your Password</Text>
                     </View>
                 </ImageBackground>
             </View>
@@ -74,7 +88,7 @@ const styles = StyleSheet.create({
         width: 250,
         borderWidth: 1,
         marginBottom: 15,
-        borderColor: 'gray',
+        borderColor: 'transparent',
         borderRadius: 10
     },
     login: {
@@ -88,3 +102,5 @@ const styles = StyleSheet.create({
         width: 250
     }
 });
+
+
