@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, AsyncStorage, TouchableHighlight, Modal, Alert, View, Text, ImageBackground, FlatList } from 'react-native';
+import {StyleSheet, AsyncStorage, TouchableHighlight, Modal, Alert, View, Text, ImageBackground, FlatList, TextInput, Button } from 'react-native';
 import * as AllImage from '../../images/index';
 import { UserText, Header } from '../../Components/index';
 import * as style from '../../styles/index';
@@ -25,18 +25,22 @@ export class TodoList extends React.Component {
         this.setState({modalVisible: value});
     };
 
+
     render() {
         const data = [{key: 'a'}, {key: 'b'}];
         return (
             <View>
                 <ImageBackground source={AllImage.backgroundImage} style={style.styles.container}>
                     <View style={style.styles.content}>
-                        <FlatList
-                            data={data}
-                            keyExtractor={this._keyExtractor}
-                            renderItem={this._renderItem}
-                            style={{backgroundColor: '#525252', height: '25%'}}
-                        />
+                        <View style={styles.liItem }>
+                            <FlatList
+                                data={data}
+                                keyExtractor={this._keyExtractor}
+                                renderItem={this._renderItem}
+                                style={{backgroundColor: '#525252',  width: 100, borderRadius: 15}}
+
+                            />
+                        </View>
                         <Modal
                             animationType="fade"
                             transparent={false}
@@ -46,14 +50,18 @@ export class TodoList extends React.Component {
                             }}>
                             <View style={styles.model}>
                                 <View>
-                                    <Text>Hello World!</Text>
-
-                                    <TouchableHighlight
+                                    <TextInput
+                                        style={{height: 100, borderColor: 'gray', borderWidth: 1}}
+                                        onChangeText={(text) => this.setState({text})}
+                                        multiline = {true}
+                                        numberOfLines = {6}
+                                    />
+                                    <Button
                                         onPress={() => {
                                             this.setModalVisible(!this.state.modalVisible);
-                                        }}>
-                                        <Text>Hide Modal</Text>
-                                    </TouchableHighlight>
+                                        }}
+                                        title="Hide Model"
+                                    />
                                 </View>
                             </View>
                         </Modal>
@@ -73,5 +81,11 @@ const styles = {
     model: {
         width: '100%',
         height: '50%'
+    },
+
+    liItem: {
+        textAlign: 'center',
+        textAlignVertical: 'center',
+        height: 200, top: -175
     }
 }
