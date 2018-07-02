@@ -3,8 +3,8 @@ import {createStackNavigator} from 'react-navigation';
 import * as Screen from './src/Screens/';
 
 const Application = createStackNavigator({
-        Login: {screen: Screen.Login},
         Home: {screen: Screen.TodoList},
+        Login: {screen: Screen.Login},
         SignUp: {screen: Screen.SignUp},
         ResetPassword: {screen: Screen.ResetPassword}
       }, {

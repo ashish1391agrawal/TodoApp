@@ -3,6 +3,7 @@ import {StyleSheet, AsyncStorage, Alert, View, Text, ImageBackground, KeyboardAv
 import * as AllImage from '../../images/index';
 import { UserText, Header } from '../../Components/index';
 import * as style from '../../styles/index';
+
 export class Login extends React.Component {
     static navigationOptions = {
         headerTitle: <Header text={'Login'} image={AllImage.backgroundImage}/>,
