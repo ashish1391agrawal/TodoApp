@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {StyleSheet, View, Text, KeyboardAvoidingView, TextInput } from 'react-native';
+import * as compoStyle from '../styles/index';
 
 export class UserText extends React.Component {
     constructor(props) {
@@ -11,7 +12,7 @@ export class UserText extends React.Component {
         const {style, onChange, value, placeholder, secureTextEntry} = this.props;
         return (
             <TextInput
-                style={style ? style : styles.textInput}
+                style={style ? style : compoStyle.componentStyle.textInput}
                 onChangeText={onChange}
                 value={value}
                 placeholder={placeholder}
@@ -21,15 +22,6 @@ export class UserText extends React.Component {
     }
 }
 
-const styles = StyleSheet.create({
-    textInput: {
-        width: 250,
-        borderWidth: 1,
-        marginBottom: 15,
-        borderColor: 'transparent',
-        borderRadius: 10
-    }
-});
 UserText.propTypes = {
     placeholder: PropTypes.string,
     style: PropTypes.oneOfType([

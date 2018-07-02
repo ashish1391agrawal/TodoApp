@@ -3,12 +3,17 @@ import {createStackNavigator} from 'react-navigation';
 import * as Screen from './src/Screens/';
 
 const Application = createStackNavigator({
-      Home: {screen: Screen.Login, title: 'Login'},
-      SignUp: {screen: Screen.SignUp, title: 'SignUp'},
-      ResetPassword: {screen: Screen.ResetPassword, title: 'Reset Password'}
-  }, {
-    headerMode: 'float',
-});
+        Login: {screen: Screen.Login},
+        Home: {screen: Screen.TodoList},
+        SignUp: {screen: Screen.SignUp},
+        ResetPassword: {screen: Screen.ResetPassword}
+      }, {
+        headerMode: 'float',
+    }, {
+        initialRouteName: {screen: Screen.Login},
+    }
+);
+
 export default class App extends React.Component {
     static navigationOptions = ({navigation}) => ({
         title: 'Home',

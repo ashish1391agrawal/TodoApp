@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, AsyncStorage, Alert, View, Text, ImageBackground, KeyboardAvoidingView, TextInput, TouchableOpacity } from 'react-native';
 import * as AllImage from '../../images/index';
 import { UserText, Header } from '../../Components/index';
-
+import * as style from '../../styles/index';
 export class Login extends React.Component {
     static navigationOptions = {
         headerTitle: <Header text={'Login'} image={AllImage.backgroundImage}/>,
@@ -23,7 +23,9 @@ export class Login extends React.Component {
             AsyncStorage.getItem('name', (err,  value) => {
                 name = value;
                 if (name === this.state.userName && this.state.password === password) {
-                    Alert.alert('Welcome', 'Succesfully Login');
+                    Alert.alert('Welcome', 'Succesfully Login', [{
+                        text: 'OK', onPress: () => this.props.navigation.navigate('Home')
+                    }]);
                 }else {
                     Alert.alert('Sorry', 'Invalid User Name Password');
                 }
@@ -45,11 +47,10 @@ export class Login extends React.Component {
     render() {
         return (
             <View>
-                <ImageBackground source={AllImage.backgroundImage} style={styles.container}>
-                    <View style={styles.content}>
+                <ImageBackground source={AllImage.backgroundImage} style={style.styles.container}>
+                    <View style={style.styles.content}>
                         <KeyboardAvoidingView>
-                            <UserText style={styles.textInput}
-                                       onChange={(userName) => this.setState({userName})}
+                            <UserText onChange={(userName) => this.setState({userName})}
                                        value={this.state.userName}
                                        placeholder="Enter User Name" />
 
@@ -60,7 +61,7 @@ export class Login extends React.Component {
                             />
                             <TouchableOpacity
                                 onPress={this.login}
-                                style={styles.login}>
+                                style={style.styles.login}>
                                 <Text style={{color: '#fff'}}>Login</Text>
                             </TouchableOpacity>
                         </KeyboardAvoidingView>
@@ -72,35 +73,3 @@ export class Login extends React.Component {
         );
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        width: '100%',
-        height: '100%',
-    },
-    content: {
-        alignContent: 'center',
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    textInput: {
-        width: 250,
-        borderWidth: 1,
-        marginBottom: 15,
-        borderColor: 'transparent',
-        borderRadius: 10
-    },
-    login: {
-        paddingTop:15,
-        paddingBottom:15,
-        borderRadius:10,
-        borderWidth: 1,
-        borderColor: '#fff',
-        backgroundColor: '#8e0f7e',
-        alignItems: 'center',
-        width: 250
-    }
-});
-
-
