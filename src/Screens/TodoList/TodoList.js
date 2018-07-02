@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {StyleSheet, AsyncStorage, TouchableHighlight, Modal, Alert, Image, View, Text, ImageBackground, FlatList } from 'react-native';
+import {StyleSheet, AsyncStorage, TouchableHighlight, Modal, Alert, Image,View, Text, ImageBackground, FlatList, TextInput, Button } from 'react-native';
 import * as AllImage from '../../images/index';
 import { UserText, Header } from '../../Components/index';
 import * as style from '../../styles/index';
@@ -46,10 +46,10 @@ export class TodoList extends React.Component {
                 AsyncStorage.getItem('profile', (err,  value) => {
                     profileImage = value;
                     this.setState({userData: {
-                            password: password,
-                            profileImage: profileImage,
-                            name: name
-                        }
+                        password: password,
+                        profileImage: profileImage,
+                        name: name
+                    }
                     });
                 });
             });
@@ -74,13 +74,16 @@ export class TodoList extends React.Component {
             <View>
                 <ImageBackground source={AllImage.backgroundImage} style={style.styles.container}>
                     <View style={style.styles.content}>
-                        <GetImagePath imageUrl={this.state.userData.profileImage}/>
-                        <FlatList
-                            data={data}
-                            keyExtractor={this._keyExtractor}
-                            renderItem={this._renderItem}
-                            style={{backgroundColor: '#525252', height: '25%'}}
-                        />
+                        <View style={styles.liItem }>
+                            <GetImagePath imageUrl={this.state.userData.profileImage}/>
+                            <FlatList
+                                data={data}
+                                keyExtractor={this._keyExtractor}
+                                renderItem={this._renderItem}
+                                style={{backgroundColor: '#525252',  width: 100, borderRadius: 15}}
+
+                            />
+                        </View>
                         <Modal
                             animationType="fade"
                             transparent={false}
@@ -113,29 +116,6 @@ export class TodoList extends React.Component {
         );
     }
 }
-
-class GetImagePath extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-    render() {
-        if(this.props.imageUrl) {
-            return (
-                <Image source={{uri: this.props.imageUrl}} style={{width: 100, height: 100}}/>
-            )
-        }
-        return (
-            <Text>Hello</Text>
-        )
-    }
-}
-GetImagePath.propTypes = {
-    imageUrl: PropTypes.oneOfType([
-        PropTypes.object,
-        PropTypes.string
-    ])
-};
-
 const styles = {
     model: {
         width: '100%',
