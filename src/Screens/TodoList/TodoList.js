@@ -93,14 +93,18 @@ export class TodoList extends React.Component {
                             }}>
                             <View style={styles.model}>
                                 <View>
-                                    <Text>Hello World!</Text>
-
-                                    <TouchableHighlight
+                                    <TextInput
+                                        style={{height: 100, borderColor: 'gray', borderWidth: 1}}
+                                        onChangeText={(text) => this.setState({text})}
+                                        multiline = {true}
+                                        numberOfLines = {6}
+                                    />
+                                    <Button
                                         onPress={() => {
                                             this.setModalVisible(!this.state.modalVisible);
-                                        }}>
-                                        <Text>Hide Modal</Text>
-                                    </TouchableHighlight>
+                                        }}
+                                        title="Hide Model"
+                                    />
                                 </View>
                             </View>
                         </Modal>
@@ -116,6 +120,29 @@ export class TodoList extends React.Component {
         );
     }
 }
+
+class GetImagePath extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+    render() {
+        if(this.props.imageUrl) {
+            return (
+                <Image source={{uri: this.props.imageUrl}} style={{width: 100, height: 100}}/>
+            )
+        }
+        return (
+            <Text>Hello</Text>
+        )
+    }
+}
+GetImagePath.propTypes = {
+    imageUrl: PropTypes.oneOfType([
+        PropTypes.object,
+        PropTypes.string
+    ])
+};
+
 const styles = {
     model: {
         width: '100%',
