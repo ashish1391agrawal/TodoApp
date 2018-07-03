@@ -147,5 +147,9 @@ const styles = {
     model: {
         width: '100%',
         height: '50%'
+    },
+
+    liItem: {
+        height: 200, top: -170
     }
 }
