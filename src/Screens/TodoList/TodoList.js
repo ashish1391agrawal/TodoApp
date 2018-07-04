@@ -11,7 +11,6 @@ export class TodoList extends React.Component {
     };
     constructor(props) {
         super(props);
-         this.temp = [];
         this.state = {
             modalVisible: false,
             todo: [],
@@ -27,15 +26,16 @@ export class TodoList extends React.Component {
         this.getUserData();
     }
 
-    _keyExtractor = (item, index) => item.key;
+    _keyExtractor = (item, index) => {
+        return item.key + '';
+    }
 
     _renderItem = ({item}) => (
-        <Text>{item.key}</Text>
+        <Text>{item.value}</Text>
     );
 
-    setModalVisible = (value, data) => {
-        this.setState({modalVisible: value});
-        console.log('dataedfrgthliko',data);
+    setModalVisible = () => {
+        this.setState({modalVisible: !this.state.modalVisible});
     };
 
     getUserData = () => {
@@ -55,8 +55,12 @@ export class TodoList extends React.Component {
                     }
                     });
                     AsyncStorage.getItem('todo', (err, value)=> {
-                        console.log('todoli', JSON.parse(value));
-                        this.setState.todo = JSON.parse(value);
+                        console.log('?', value);
+                        if (value) {
+                            this.setState({todo: [{key: JSON.parse(value).key, value: JSON.parse(value).value}]});
+                            // this.state.todo=[];
+                        }
+                        console.log('todo array', this.state.todo.length);
                     });
                 });
             });
@@ -76,24 +80,14 @@ export class TodoList extends React.Component {
     };
 
     test = (ntodo) => {
-        //let temp = [];
-        console.log('data', ntodo);
-        this.temp.push(ntodo);
-        /*let flag = 0;
-        console.log('new todo',JSON.stringify(ntodo));
-        if (temp !== ntodo) {
-            console.log('if block', temp);
-            temp = ntodo;
-            flag=1;
-        }*/
-        if(this.temp.length > 0)
-            console.log('testing block',this.temp.length);
-            AsyncStorage.setItem('todo', {key: this.state.todo.length + 1, value: JSON.stringify(this.temp[this.temp.length])});
-
+        AsyncStorage.setItem('todo', JSON.stringify({key: this.state.todo.length + 1, value: ntodo}));
+        this.setModalVisible();
     };
 
     render() {
         const data = [{key: 'a'}, {key: 'b'}];
+        console.log('todo array in render', this.state.todo);
+
         return (
             <View>
                 <ImageBackground source={AllImage.backgroundImage} style={style.styles.container}>
@@ -105,7 +99,6 @@ export class TodoList extends React.Component {
                                 keyExtractor={this._keyExtractor}
                                 renderItem={this._renderItem}
                                 style={{backgroundColor: '#525252',  width: 100, borderRadius: 15}}
-
                             />
                         </View>
                         <Modal
@@ -118,12 +111,6 @@ export class TodoList extends React.Component {
                             <View style={styles.model}>
                                 <View>
                                     <TodoTaskcomp getData={this.test} />
-                                    <Button
-                                        onPress={(data) => {
-                                            this.setModalVisible(!this.state.modalVisible,data);
-                                        }}
-                                        title="Hide Model"
-                                    />
                                 </View>
                             </View>
                         </Modal>

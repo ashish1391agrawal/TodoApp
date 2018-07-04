@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {StyleSheet, ScrollView, View, Text, FlatList, TextInput } from 'react-native';
+import {StyleSheet, ScrollView, View, Text, FlatList, TextInput, Button } from 'react-native';
 import * as compoStyle from '../styles/index';
 
 export class TodoTask extends React.Component {
@@ -41,9 +41,6 @@ export class TodoTaskcomp extends React.Component {
         }
     }
     setData = (val) => {
-        if (val) {
-            this.props.getData(val);
-        }
         this.setState({text: val});
     };
     render() {
@@ -54,6 +51,12 @@ export class TodoTaskcomp extends React.Component {
                     onChangeText={(text) => this.setData(text)}
                     multiline = {true}
                     numberOfLines = {6}
+                />
+                <Button
+                    onPress={() => {
+                        this.props.getData(this.state.text);
+                    }}
+                    title="Hide Model"
                 />
             </View>
         )
