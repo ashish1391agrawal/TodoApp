@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/TodoAppNew.iml" filepath="$PROJECT_DIR$/.idea/TodoAppNew.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/TodoApp.iml" filepath="$PROJECT_DIR$/.idea/TodoApp.iml" />
+      <module fileurl="file://D:\Development(My personal)\React-Native\TodoApp\.idea\TodoAppNew.iml" filepath="D:\Development(My personal)\React-Native\TodoApp\.idea\TodoAppNew.iml" />
     </modules>
   </component>
 </project>
